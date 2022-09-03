@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component name="HomeView" extends="Group">
+	<children>
+		<Poster id="background" uri="pkg:/images/flappy-bird/bg.jpeg" width="434" height="767" clippingRect="[0, 0, 434, 767]">
+			<Poster id="message" uri="pkg:/images/flappy-bird/message.png" width="276" height="400" />
+			<Pipes id="lowPipes" height="480" />
+			<Pipes id="upPipes" height="480" />
+			<Poster id="base" uri="pkg:/images/flappy-bird/base.png" width="504" height="168" translation="[0, 619]" />
+			<Bird id="bird" translation="[50, 360]" />
+			<LayoutGroup id="scoreLayoutGroup" itemSpacings="[15]" translation="[450, 525]" layoutDirection="horiz">
+				<Label id="scoreText" text="SCORE:" color="0x000000">
+					<Font role="font" uri="pkg:/fonts/Arvo-Regular.ttf" size="36" />
+				</Label>
+				<Label id="score" text="0" color="0x000000">
+					<Font role="font" uri="pkg:/fonts/Arvo-Regular.ttf" size="36" />
+				</Label>
+			</LayoutGroup>
+		</Poster>
+		<Animation id="sceneAnimation" duration="0.5" repeat="true" easeFunction="linear">
+			<Vector2DFieldInterpolator id="baseAnimation" key="[0.0, 1.0]" fieldToInterp="base.translation" />
+		</Animation>
+		<Animation id="pipesAnimation" duration="1" repeat="false" easeFunction="linear">
+			<Vector2DFieldInterpolator id="lowPipesAnimation" key="[0.0, 1.0]" fieldToInterp="lowPipes.translation" />
+			<Vector2DFieldInterpolator id="upPipesAnimation" key="[0.0, 1.0]" fieldToInterp="upPipes.translation" />
+		</Animation>
+	</children>
+	<!-- BrightScript Portion -->
+	<script type="text/brightscript" uri="./HomeView.brs"></script>
+	<script type="text/brightscript" uri="pkg:/components/controls/GameStates/GameStates.brs"></script>
+	<!-- End of BrightScript Portion -->
+</component>

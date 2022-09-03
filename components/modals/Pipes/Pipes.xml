@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component name="Pipes" extends="Group">
+	<interface>
+		<field id="height" type="integer" value="480" />
+		<field id="spacing" type="integer" value="100" />
+		<function name="createNewPipe" />
+	</interface>
+	<children>
+	</children>
+	<!-- BrightScript Portion -->
+	<script type="text/brightscript" uri="./Pipes.brs"></script>
+	<!-- End of BrightScript Portion -->
+</component>
