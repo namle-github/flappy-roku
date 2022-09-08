@@ -5,7 +5,7 @@ function init()
     m.fly = m.top.findNode("fly")
     currentPos = m.top.pitch
     ?" @@@ ", currentPos
-    m.drop.keyValue = [currentPos, [50, 239]]
+    m.drop.keyValue = [currentPos, [50, 229]]
     m.top.isDead = false
 end function
 
@@ -24,7 +24,7 @@ function fly()
 end function
 
 function onPitchChange()
-    if (m.top.pitch[1] = 239)
+    if (m.top.pitch[1] = 229)
         m.dropAnimation.control = "stop"
         m.top.isDead = true
     end if
@@ -33,7 +33,13 @@ end function
 function onFlyStateChange()
     if (m.top.isFlying = "stopped")
         currentPos = m.top.pitch
-        m.drop.keyValue = [currentPos, [50, 239]]
+        m.drop.keyValue = [currentPos, [50, 229]]
         m.dropAnimation.control = "start"
     end if
+end function
+
+function onDeadChanged(event)
+    isDead = event.GetData()
+    ?"DEAD"
+    ' if ()
 end function

@@ -6,6 +6,7 @@ function init()
   m.top.setFocus(true)
   ' Background
   m.background = m.top.findNode("background")
+  m.backScene = m.top.findNode("backScene")
   m.base = m.top.findNode("base")
   m.message = m.top.findNode("message")
   m.sceneAnimation = m.top.findNode("sceneAnimation")
@@ -22,8 +23,14 @@ function init()
   m.scoreLayoutGroup = m.top.findNode("scoreLayoutGroup")
   m.score = m.top.findNode("score")
 
+  ' Timer for background change
+  m.timer = CreateObject("roSGNode", "Timer")
+  m.timer.duration = 1
+  m.timer.repeat = true
+  m.timer.ObserveField("fire", "onTimerFireChangeBackgroundColor")
+
   m.screenSize = CreateObject("roDeviceInfo").GetUIResolution()
-  m.background.translation = [(m.screenSize.width - m.background.boundingRect().width) / 2, (m.screenSize.height - m.background.boundingRect().height) / 2]
+  m.background.translation = [(m.screenSize.width - m.background.width) / 2, (m.screenSize.height - m.background.height) / 2]
   m.baseAnimation.keyValue = [[0, 619], [-71, 619]]
   m.message.translation = [(m.background.width - m.message.width) / 2, 100]
   m.scoreLayoutGroup.translation = [(m.background.width - m.scoreLayoutGroup.boundingRect().width) / 2, m.base.translation[1] + 50]
@@ -71,10 +78,10 @@ end function
 function OnPipeMoving()
   m.lowPipesAnimation.keyValue = [m.lowPipes.translation, [m.lowPipes.translation[0] - 100, m.lowPipes.translation[1]]]
   m.upPipesAnimation.keyValue = [m.upPipes.translation, [m.upPipes.translation[0] - 100, m.upPipes.translation[1]]]
-  
+
   newLowPipe = m.lowPipes.callFunc("createNewPipe", false)
   newUpPipe = m.upPipes.callFunc("createNewPipe", true)
-  
+
   m.pipesAnimation.control = "start"
 
   if (m.lastPipePos <> invalid)
@@ -145,6 +152,7 @@ function startGame()
   m.sceneAnimation.control = "start"
   m.pipesAnimation.control = "start"
   m.message.visible = false
+  m.timer.control = "start"
   SetState(GameStates().PLAYING)
   ?"STATE: ", m.gameState
 end function
@@ -176,7 +184,7 @@ function resetGame()
 
   m.upPipes.removeChildrenIndex(m.upPipes.getChildCount(), 0)
   m.lowPipes.removeChildrenIndex(m.lowPipes.getChildCount(), 0)
-  
+
   SetState(GameStates().START)
   m.scoreValue = 0
   showScore()
@@ -186,3 +194,11 @@ function showScore() as void
   scoreString = Str(m.scoreValue).Trim()
   m.score.text = scoreString
 end function
+
+function onTimerFireChangeBackgroundColor()
+  ' if (GetState() <> "gameover")
+    backgroundColor = ColorPalette()[Int(Rnd(0) * ColorPalette().Count())]
+    m.backScene.blendColor = backgroundColor
+  ' end if
+end function
+

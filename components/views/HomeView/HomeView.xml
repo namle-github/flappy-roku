@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component name="HomeView" extends="Group">
+	<!-- BrightScript Portion -->
+	<script type="text/brightscript" uri="./HomeView.brs"></script>
+	<script type="text/brightscript" uri="pkg:/components/controls/GameStates/GameStates.brs" />
+	<script type="text/brightscript" uri="pkg:/components/constants/Constants.brs" />
+	<!-- End of BrightScript Portion -->
 	<children>
-		<Poster id="background" uri="pkg:/images/flappy-bird/bg.jpeg" width="434" height="767" clippingRect="[0, 0, 434, 767]">
+		<Rectangle id="background" clippingRect="[0, 0, 434, 767]" width="434" height="767">
+			<Poster id="backScene" uri="pkg:/images/flappy-bird/bg_$$RES$$.jpg" />
 			<Poster id="message" uri="pkg:/images/flappy-bird/message.png" width="276" height="400" />
 			<Pipes id="lowPipes" height="480" />
 			<Pipes id="upPipes" height="480" />
@@ -15,7 +21,9 @@
 					<Font role="font" uri="pkg:/fonts/Arvo-Regular.ttf" size="36" />
 				</Label>
 			</LayoutGroup>
-		</Poster>
+		</Rectangle>
+
+		<!-- <Clock translation="[800, 360]" /> -->
 		<Animation id="sceneAnimation" duration="0.5" repeat="true" easeFunction="linear">
 			<Vector2DFieldInterpolator id="baseAnimation" key="[0.0, 1.0]" fieldToInterp="base.translation" />
 		</Animation>
@@ -24,8 +32,4 @@
 			<Vector2DFieldInterpolator id="upPipesAnimation" key="[0.0, 1.0]" fieldToInterp="upPipes.translation" />
 		</Animation>
 	</children>
-	<!-- BrightScript Portion -->
-	<script type="text/brightscript" uri="./HomeView.brs"></script>
-	<script type="text/brightscript" uri="pkg:/components/controls/GameStates/GameStates.brs"></script>
-	<!-- End of BrightScript Portion -->
 </component>

@@ -4,12 +4,12 @@
         <field id="pitch" type="array" alias="bird.translation" onChange="onPitchChange" />
         <field id="isDropping" type="boolean" alias="dropAnimation.state" />
         <field id="isFlying" type="boolean" alias="flyAnimation.state" onChange="onFlyStateChange" />
-        <field id="isDead" type="boolean" />
+        <field id="isDead" type="boolean" onChange="onDeadChanged" />
         <function name="drop" />
         <function name="fly" />
     </interface>
 	<children>
-        <Poster id="bird" uri="pkg:/images/flappy-bird/bird.png" width="51" height="36" />
+        <Poster id="bird" uri="pkg:/images/flappy-bird/bird_$$RES$$.png" width="51" height="36" />
         <Animation id="dropAnimation" duration="1" repeat="false" easeFunction="linear">
 			<Vector2DFieldInterpolator id="drop" key="[0.0, 1.0]" fieldToInterp="bird.translation" />
 		</Animation>
