@@ -4,7 +4,6 @@ function init()
     m.flyAnimation = m.top.findNode("flyAnimation")
     m.fly = m.top.findNode("fly")
     currentPos = m.top.pitch
-    ?" @@@ ", currentPos
     m.drop.keyValue = [currentPos, [50, 229]]
     m.top.isDead = false
 end function

@@ -89,7 +89,7 @@ function OnPipeMoving()
   end if
 
   if (m.lastPipePos <> invalid)
-    offsetX = 300 + Cint(Rnd(0) * 200) * Cint(Cos(Rnd(3.14)))
+    offsetX = 300 + Cint(Rnd(0) * 100) * Cint(Cos(Rnd(3.14)))
     offsetY = Cint(Rnd(0) * newLowPipe.height / 3) * Cint(Cos(Rnd(3.14)))
     newLowPipe.translation = [m.lastPipePos + offsetX, newLowPipe.translation[1] + offsetY]
     newUpPipe.translation = [newLowPipe.translation[0], newUpPipe.translation[1] + offsetY]
