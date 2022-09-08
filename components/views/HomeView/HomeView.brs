@@ -162,6 +162,7 @@ function stopGame()
   m.pipesAnimation.control = "stop"
   m.bird.CallFunc("drop", false)
   SetState(GameStates().GAME_OVER)
+  m.bird.birdUri = "pkg:/images/flappy-bird/bird-dark_$$RES$$.png"
   ?"STATE: ", m.gameState
 end function
 
@@ -186,6 +187,7 @@ function resetGame()
   m.lowPipes.removeChildrenIndex(m.lowPipes.getChildCount(), 0)
 
   SetState(GameStates().START)
+  m.bird.birdUri = "pkg:/images/flappy-bird/bird_$$RES$$.png"
   m.scoreValue = 0
   showScore()
 end function
