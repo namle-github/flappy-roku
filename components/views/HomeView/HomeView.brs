@@ -82,11 +82,16 @@ function OnPipeMoving()
   newLowPipe = m.lowPipes.callFunc("createNewPipe", false)
   newUpPipe = m.upPipes.callFunc("createNewPipe", true)
 
-  m.pipesAnimation.control = "start"
+  if (NOT m.bird.isDead)
+    m.pipesAnimation.control = "start"
+  else
+    stopGame()
+  end if
 
   if (m.lastPipePos <> invalid)
+    offsetX = 300 + Cint(Rnd(0) * 200) * Cint(Cos(Rnd(3.14)))
     offsetY = Cint(Rnd(0) * newLowPipe.height / 3) * Cint(Cos(Rnd(3.14)))
-    newLowPipe.translation = [m.lastPipePos + 235, newLowPipe.translation[1] + offsetY]
+    newLowPipe.translation = [m.lastPipePos + offsetX, newLowPipe.translation[1] + offsetY]
     newUpPipe.translation = [newLowPipe.translation[0], newUpPipe.translation[1] + offsetY]
   end if
 
@@ -188,6 +193,7 @@ function resetGame()
 
   SetState(GameStates().START)
   m.bird.birdUri = "pkg:/images/flappy-bird/bird_$$RES$$.png"
+  m.bird.isDead = false
   m.scoreValue = 0
   showScore()
 end function
@@ -199,8 +205,8 @@ end function
 
 function onTimerFireChangeBackgroundColor()
   ' if (GetState() <> "gameover")
-    backgroundColor = ColorPalette()[Int(Rnd(0) * ColorPalette().Count())]
-    m.backScene.blendColor = backgroundColor
+  backgroundColor = ColorPalette()[Int(Rnd(0) * ColorPalette().Count())]
+  m.backScene.blendColor = backgroundColor
   ' end if
 end function
 

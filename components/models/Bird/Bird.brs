@@ -39,7 +39,5 @@ function onFlyStateChange()
 end function
 
 function onDeadChanged(event)
-    isDead = event.GetData()
-    ?"DEAD"
-    ' if ()
+    return event.GetData()
 end function

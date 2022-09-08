@@ -4,7 +4,7 @@
         <field id="pitch" type="array" alias="bird.translation" onChange="onPitchChange" />
         <field id="isDropping" type="boolean" alias="dropAnimation.state" />
         <field id="isFlying" type="boolean" alias="flyAnimation.state" onChange="onFlyStateChange" />
-        <field id="isDead" type="boolean" onChange="onDeadChanged" />
+        <field id="isDead" type="boolean" />
         <field id="birdUri" type="boolean" alias="bird.uri" />
         <function name="drop" />
         <function name="fly" />
