@@ -5,7 +5,7 @@ end function
 function createNewPipe(rotate = false as boolean) as object
     newPipe = CreateObject("roSGNode", "Poster")
     newPipe.setFields({
-        uri: "pkg:/images/flappy-bird/pipe.png",
+        uri: "pkg:/images/flappy-bird/pipe_$$RES$$.png",
         width: 78,
         height: 480,
         scaleRotateCenter: [39, 0],

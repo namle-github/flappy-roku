@@ -14,7 +14,7 @@
         <Animation id="dropAnimation" duration="1" repeat="false" easeFunction="linear">
 			<Vector2DFieldInterpolator id="drop" key="[0.0, 1.0]" fieldToInterp="bird.translation" />
 		</Animation>
-        <Animation id="flyAnimation" duration="0.3" repeat="false" easeFunction="outQuartic">
+        <Animation id="flyAnimation" duration="0.3" repeat="false" easeFunction="outCubic">
 			<Vector2DFieldInterpolator id="fly" key="[0.0, 1.0]" fieldToInterp="bird.translation" />
 		</Animation>
     </children>

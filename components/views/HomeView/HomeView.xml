@@ -4,6 +4,7 @@
 	<script type="text/brightscript" uri="./HomeView.brs"></script>
 	<script type="text/brightscript" uri="pkg:/components/controls/GameStates/GameStates.brs" />
 	<script type="text/brightscript" uri="pkg:/components/constants/Constants.brs" />
+	<script type="text/brightscript" uri="pkg:/components/plugins/RegistryPlugin/RegistryPlugin.brs" />
 	<!-- End of BrightScript Portion -->
 	<children>
 		<Rectangle id="background" clippingRect="[0, 0, 434, 767]" width="434" height="767">
@@ -11,21 +12,23 @@
 			<Poster id="message" uri="pkg:/images/flappy-bird/message.png" width="276" height="400" />
 			<Pipes id="lowPipes" height="480" />
 			<Pipes id="upPipes" height="480" />
-			<Poster id="base" uri="pkg:/images/flappy-bird/base.png" width="504" height="168" translation="[0, 619]" />
+			<Poster id="base" uri="pkg:/images/flappy-bird/base_$$RES$$.png" width="504" height="168" translation="[0, 619]" />
 			<Bird id="bird" translation="[50, 360]" />
 			<LayoutGroup id="scoreLayoutGroup" itemSpacings="[15]" translation="[450, 525]" layoutDirection="horiz">
-				<Label id="scoreText" text="SCORE:" color="0x000000">
-					<Font role="font" uri="pkg:/fonts/Arvo-Regular.ttf" size="36" />
+				<Label id="scoreText" text="RECORD:" color="0xEEF2E6AA">
+					<Font role="font" uri="pkg:/fonts/TitanOne-Regular.ttf" size="36" />
 				</Label>
-				<Label id="score" text="0" color="0x000000">
-					<Font role="font" uri="pkg:/fonts/Arvo-Regular.ttf" size="36" />
+				<Label id="score" text="0" color="0xEEF2E6">
+					<Font role="font" uri="pkg:/fonts/TitanOne-Regular.ttf" size="36" />
 				</Label>
 			</LayoutGroup>
 		</Rectangle>
 
-		<!-- <Clock translation="[800, 360]" /> -->
 		<Animation id="sceneAnimation" duration="0.5" repeat="true" easeFunction="linear">
-			<Vector2DFieldInterpolator id="baseAnimation" key="[0.0, 1.0]" fieldToInterp="base.translation" />
+			<Vector2DFieldInterpolator id="baseAnimation" key="[0.0, 1.0]" keyValue="[[0, 619], [-71, 619]]" fieldToInterp="base.translation" />
+		</Animation>
+		<Animation id="bgAnimation" duration="20" repeat="true" easeFunction="linear">
+			<Vector2DFieldInterpolator id="bgMovement" key="[0.0, 1.0]" keyValue="[[0, 0], [-800, 0]]" fieldToInterp="backScene.translation" />
 		</Animation>
 		<Animation id="pipesAnimation" duration="1" repeat="false" easeFunction="linear">
 			<Vector2DFieldInterpolator id="lowPipesAnimation" key="[0.0, 1.0]" fieldToInterp="lowPipes.translation" />

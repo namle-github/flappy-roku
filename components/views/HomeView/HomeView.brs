@@ -4,13 +4,18 @@
 
 function init()
   m.top.setFocus(true)
+  initRegistry()
+  m.record = getRegistryField("best-score")
+
   ' Background
   m.background = m.top.findNode("background")
   m.backScene = m.top.findNode("backScene")
   m.base = m.top.findNode("base")
   m.message = m.top.findNode("message")
   m.sceneAnimation = m.top.findNode("sceneAnimation")
+  m.bgAnimation = m.top.findNode("bgAnimation")
   m.baseAnimation = m.top.findNode("baseAnimation")
+  m.bgMovement = m.top.findNode("bgMovement")
   ' Pipes
   m.lowPipes = m.top.findNode("lowPipes")
   m.upPipes = m.top.findNode("upPipes")
@@ -21,7 +26,9 @@ function init()
   m.bird = m.top.findNode("bird")
   ' Score
   m.scoreLayoutGroup = m.top.findNode("scoreLayoutGroup")
+  m.scoreText = m.top.findNode("scoreText")
   m.score = m.top.findNode("score")
+  m.score.text = m.record
 
   ' Timer for background change
   m.timer = CreateObject("roSGNode", "Timer")
@@ -29,28 +36,26 @@ function init()
   m.timer.repeat = true
   m.timer.ObserveField("fire", "onTimerFireChangeBackgroundColor")
 
+  m.backScene.blendColor = "0x0A1824"
+
   m.screenSize = CreateObject("roDeviceInfo").GetUIResolution()
   m.background.translation = [(m.screenSize.width - m.background.width) / 2, (m.screenSize.height - m.background.height) / 2]
-  m.baseAnimation.keyValue = [[0, 619], [-71, 619]]
   m.message.translation = [(m.background.width - m.message.width) / 2, 100]
   m.scoreLayoutGroup.translation = [(m.background.width - m.scoreLayoutGroup.boundingRect().width) / 2, m.base.translation[1] + 50]
   m.lowPipes.translation = [m.lowPipes.translation[0], m.background.height - m.lowPipes.height]
   m.upPipes.translation = [m.upPipes.translation[0], m.background.height - m.upPipes.height]
-  ?" ### ", FormatJson(m.lowPipes.translation), FormatJson(m.upPipes.translation)
   m.lowPipesAnimation.keyValue = [m.lowPipes.translation, [m.lowPipes.translation[0] - 100, m.lowPipes.translation[1]]]
   m.upPipesAnimation.keyValue = [m.upPipes.translation, [m.upPipes.translation[0] - 100, m.upPipes.translation[1]]]
 
   initState()
   ?"STATE: ", m.gameState
-  m.scoreValue = 0
-  showScore()
+  setScore(m.record)
 end function
 
 function onKeyEvent(key as string, press as boolean) as boolean
   handled = false
   if (press = true)
     if (key = "OK" and m.gameState = "start")
-      ' SetState(GameStates().PLAYING)
       resetGame()
       startGame()
       ?"STATE: ", m.gameState
@@ -82,7 +87,7 @@ function OnPipeMoving()
   newLowPipe = m.lowPipes.callFunc("createNewPipe", false)
   newUpPipe = m.upPipes.callFunc("createNewPipe", true)
 
-  if (NOT m.bird.isDead)
+  if (not m.bird.isDead)
     m.pipesAnimation.control = "start"
   else
     stopGame()
@@ -135,7 +140,7 @@ function OnPipeMoving()
 
   if ((birdPosX - firstLowPipePosX) >= 25 and (m.checked = false or m.checked = invalid))
     m.scoreValue++
-    showScore()
+    setScore(m.scoreValue)
     ?"Score: ", m.scoreValue
     m.checked = true
   end if
@@ -154,8 +159,13 @@ function isCrossed(range1 as object, range2 as object) as boolean
 end function
 
 function startGame()
+  m.scoreText.text = "SCORE:"
+  m.scoreValue = 0
+  setScore(m.scoreValue)
+
   m.sceneAnimation.control = "start"
   m.pipesAnimation.control = "start"
+  m.bgAnimation.control = "start"
   m.message.visible = false
   m.timer.control = "start"
   SetState(GameStates().PLAYING)
@@ -163,8 +173,14 @@ function startGame()
 end function
 
 function stopGame()
+  if (m.record < m.scoreValue)
+    m.record = m.scoreValue
+    setRegistryField("best-score", m.scoreValue)
+  end if
+
   m.sceneAnimation.control = "stop"
   m.pipesAnimation.control = "stop"
+  m.bgAnimation.control = "stop"
   m.bird.CallFunc("drop", false)
   SetState(GameStates().GAME_OVER)
   m.bird.birdUri = "pkg:/images/flappy-bird/bird-dark_$$RES$$.png"
@@ -194,19 +210,20 @@ function resetGame()
   SetState(GameStates().START)
   m.bird.birdUri = "pkg:/images/flappy-bird/bird_$$RES$$.png"
   m.bird.isDead = false
-  m.scoreValue = 0
-  showScore()
+
+  m.scoreText.text = "RECORD:"
+  setScore(m.record)
 end function
 
-function showScore() as void
-  scoreString = Str(m.scoreValue).Trim()
+function setScore(score as integer) as void
+  scoreString = Str(score).Trim()
   m.score.text = scoreString
 end function
 
 function onTimerFireChangeBackgroundColor()
-  ' if (GetState() <> "gameover")
-  backgroundColor = ColorPalette()[Int(Rnd(0) * ColorPalette().Count())]
-  m.backScene.blendColor = backgroundColor
-  ' end if
+  if (GetState() <> GameStates().GAME_OVER AND GetState() <> GameStates().START)
+    backgroundColor = ColorPalette()[Int(Rnd(0) * ColorPalette().Count())]
+    m.backScene.blendColor = backgroundColor
+  end if
 end function
 
