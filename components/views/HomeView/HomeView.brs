@@ -221,7 +221,7 @@ function setScore(score as integer) as void
 end function
 
 function onTimerFireChangeBackgroundColor()
-  if (GetState() <> GameStates().GAME_OVER AND GetState() <> GameStates().START)
+  if (GetState() <> GameStates().GAME_OVER AND GetState() <> GameStates().START AND m.scoreValue > 0 AND m.scoreValue mod 10 = 0)
     backgroundColor = ColorPalette()[Int(Rnd(0) * ColorPalette().Count())]
     m.backScene.blendColor = backgroundColor
   end if

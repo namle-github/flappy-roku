@@ -8,7 +8,7 @@
 	<!-- End of BrightScript Portion -->
 	<children>
 		<Rectangle id="background" clippingRect="[0, 0, 434, 767]" width="434" height="767">
-			<Poster id="backScene" uri="pkg:/images/flappy-bird/bg_$$RES$$.jpg" />
+			<Poster id="backScene" uri="pkg:/images/flappy-bird/bg_$$RES$$.png" />
 			<Poster id="message" uri="pkg:/images/flappy-bird/message.png" width="276" height="400" />
 			<Pipes id="lowPipes" height="480" />
 			<Pipes id="upPipes" height="480" />
