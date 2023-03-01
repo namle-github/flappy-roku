@@ -173,7 +173,7 @@ function startGame()
 end function
 
 function stopGame()
-  if (m.record < m.scoreValue)
+  if (m.record < m.scoreValue OR m.record = invalid)
     m.record = m.scoreValue
     setRegistryField("best-score", m.scoreValue)
   end if

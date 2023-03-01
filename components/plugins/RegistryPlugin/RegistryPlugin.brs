@@ -46,5 +46,6 @@ end function
 '******************************************************************************
 function getRegistryField(fieldName as string) as integer
     readValue = m.section.Read(fieldName)
-    return ParseJson(readValue)
+    if (readValue <> "") return ParseJson(readValue)
+    return 0
 end function
