@@ -1,5 +1,4 @@
 function init()
-    ?"pipes init"
 end function
 
 function createNewPipe(rotate = false as boolean) as object

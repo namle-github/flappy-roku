@@ -7,10 +7,6 @@ function init()
     m.home.setFocus(true)
 end function
 
-function myFunc()
-    ?" HEELOOOO"
-end function
-
 ' function onKeyEvent(key as string, press as boolean) as boolean
 '   handled = false
 '   if (press = true)

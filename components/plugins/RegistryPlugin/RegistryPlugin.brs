@@ -11,8 +11,8 @@ function initRegistry()
     m.registry = CreateObject("roRegistry")
     m.section = CreateObject("roRegistrySection", "gameStorage")
 
-    ?" Section List: ", FormatJson(m.registry.GetSectionList())
-    ?" Available space: ", FormatJson(m.registry.GetSpaceAvailable())
+    ' ?" Section List: ", FormatJson(m.registry.GetSectionList())
+    ' ?" Available space: ", FormatJson(m.registry.GetSpaceAvailable())
 end function
 
 '******************************************************************************
@@ -32,12 +32,8 @@ end function
 '******************************************************************************
 function setRegistryField(fieldName as string, value as integer) as boolean
     isSuccess = false
-
-    ?" $$$ ", Type(FormatJson(value)), FormatJson(value)
-
     m.section.Write(fieldName, FormatJson(value))
     m.section.Flush()
-
     return isSuccess
 end function
 

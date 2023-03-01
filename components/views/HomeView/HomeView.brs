@@ -48,7 +48,7 @@ function init()
   m.upPipesAnimation.keyValue = [m.upPipes.translation, [m.upPipes.translation[0] - 100, m.upPipes.translation[1]]]
 
   initState()
-  ?"STATE: ", m.gameState
+  ' ?"STATE: ", m.gameState
   setScore(m.record)
 end function
 
@@ -58,7 +58,6 @@ function onKeyEvent(key as string, press as boolean) as boolean
     if (key = "OK" and m.gameState = "start")
       resetGame()
       startGame()
-      ?"STATE: ", m.gameState
       m.bird.callFunc("drop", true)
       m.upPipes.ObserveField("translation", "OnPipeMoving")
       handled = true
@@ -141,7 +140,7 @@ function OnPipeMoving()
   if ((birdPosX - firstLowPipePosX) >= 25 and (m.checked = false or m.checked = invalid))
     m.scoreValue++
     setScore(m.scoreValue)
-    ?"Score: ", m.scoreValue
+    ' ?"Score: ", m.scoreValue
     m.checked = true
   end if
 
@@ -169,7 +168,6 @@ function startGame()
   m.message.visible = false
   m.timer.control = "start"
   SetState(GameStates().PLAYING)
-  ?"STATE: ", m.gameState
 end function
 
 function stopGame()
@@ -184,7 +182,6 @@ function stopGame()
   m.bird.CallFunc("drop", false)
   SetState(GameStates().GAME_OVER)
   m.bird.birdUri = "pkg:/images/flappy-bird/bird-dark_$$RES$$.png"
-  ?"STATE: ", m.gameState
 end function
 
 function resetGame()
