@@ -25,7 +25,7 @@ end function
 function onPitchChange()
     if (m.top.pitch[1] = 229)
         m.dropAnimation.control = "stop"
-        m.top.isDead = true
+        ' m.top.isDead = true
     end if
 end function
 
@@ -37,6 +37,8 @@ function onFlyStateChange()
     end if
 end function
 
-function onDeadChanged(event)
-    return event.GetData()
+function onDeadChange(event)
+    ' ?" @@@ "event.GetData()
+    ' if (event.GetData() = true) m.audio.control = "play"
+    ' return event.GetData()
 end function
