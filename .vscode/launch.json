@@ -8,7 +8,7 @@
             "name": "BrightScript Debug: Launch",
             "type": "brightscript",
             "request": "launch",
-            "host": "192.168.0.27",
+            "host": "192.168.1.6",
             "password": "0000",
             "rootDir": "${workspaceFolder}",
             "files": [
@@ -16,7 +16,8 @@
                 "source/**/*.*",
                 "components/**/*.*",
                 "images/**/*.*",
-                "fonts/**/*.*"
+                "fonts/**/*.*",
+                "audios/**/*.*"
             ]
         }
     ]

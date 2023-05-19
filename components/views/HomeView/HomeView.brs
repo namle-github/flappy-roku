@@ -7,6 +7,8 @@ function init()
   initRegistry()
   m.record = getRegistryField("best-score")
 
+  m.audio = createAudio("pkg:/audios/game-over.m4a")
+
   ' Background
   m.background = m.top.findNode("background")
   m.backScene = m.top.findNode("backScene")
@@ -135,7 +137,9 @@ function OnPipeMoving()
   birdRangeX = [birdPosX, birdPosX + birdSize[0]]
   birdRangeY = [birdPosY, birdPosY + birdSize[1]]
 
-  if ((isCrossed(birdRangeX, firstUpPipeRangeX) and isCrossed(birdRangeY, firstUpPipeRangeY)) or ((isCrossed(birdRangeX, firstLowPipeRangeX) and isCrossed(birdRangeY, firstLowPipeRangeY)))) stopGame()
+  if ((isCrossed(birdRangeX, firstUpPipeRangeX) and isCrossed(birdRangeY, firstUpPipeRangeY)) or ((isCrossed(birdRangeX, firstLowPipeRangeX) and isCrossed(birdRangeY, firstLowPipeRangeY))))
+    stopGame()
+  end if
 
   if ((birdPosX - firstLowPipePosX) >= 25 and (m.checked = false or m.checked = invalid))
     m.scoreValue++
@@ -171,8 +175,11 @@ function startGame()
 end function
 
 function stopGame()
+  m.audio.control = "play"
+
   if (m.record < m.scoreValue OR m.record = invalid)
     m.record = m.scoreValue
+    m.bird.isDead = true
     setRegistryField("best-score", m.scoreValue)
   end if
 

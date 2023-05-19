@@ -4,7 +4,8 @@
 	<script type="text/brightscript" uri="./HomeView.brs"></script>
 	<script type="text/brightscript" uri="pkg:/components/controls/GameStates/GameStates.brs" />
 	<script type="text/brightscript" uri="pkg:/components/constants/Constants.brs" />
-	<script type="text/brightscript" uri="pkg:/components/plugins/RegistryPlugin/RegistryPlugin.brs" />
+	<script type="text/brightscript" uri="pkg:/components/plugins/RegistryPlugin.brs" />
+	<script type="text/brightscript" uri="pkg:/components/plugins/AudioPlugin.brs" />
 	<!-- End of BrightScript Portion -->
 	<children>
 		<Rectangle id="background" clippingRect="[0, 0, 434, 767]" width="434" height="767">
