@@ -39,7 +39,6 @@ function init()
   m.backScene.blendColor = "0x0A1824"
 
   m.screenSize = CreateObject("roDeviceInfo").GetUIResolution()
-  m.background.translation = [(m.screenSize.width - m.background.width) / 2, (m.screenSize.height - m.background.height) / 2]
   m.message.translation = [(m.background.width - m.message.width) / 2, 100]
   m.scoreLayoutGroup.translation = [(m.background.width - m.scoreLayoutGroup.boundingRect().width) / 2, m.base.translation[1] + 50]
   m.lowPipes.translation = [m.lowPipes.translation[0], m.background.height - m.lowPipes.height]
@@ -171,7 +170,7 @@ function startGame()
 end function
 
 function stopGame()
-  if (m.record < m.scoreValue OR m.record = invalid)
+  if (m.record < m.scoreValue or m.record = invalid)
     m.record = m.scoreValue
     setRegistryField("best-score", m.scoreValue)
   end if
@@ -218,7 +217,7 @@ function setScore(score as integer) as void
 end function
 
 function onTimerFireChangeBackgroundColor()
-  if (GetState() <> GameStates().GAME_OVER AND GetState() <> GameStates().START AND m.scoreValue > 0 AND m.scoreValue mod 10 = 0)
+  if (GetState() <> GameStates().GAME_OVER and GetState() <> GameStates().START and m.scoreValue > 0 and m.scoreValue mod 10 = 0)
     backgroundColor = ColorPalette()[Int(Rnd(0) * ColorPalette().Count())]
     m.backScene.blendColor = backgroundColor
   end if
