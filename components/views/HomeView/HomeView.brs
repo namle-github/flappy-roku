@@ -1,7 +1,11 @@
-'**
-'** HomeView
-'**
+'******************************************************************************
+'** HomeView.brs
+'** BrightScript code for the HomeView component
+'******************************************************************************
 
+'******************************************************************************
+'** Initialization
+'******************************************************************************
 function init()
   m.top.setFocus(true)
   initRegistry()
@@ -51,6 +55,9 @@ function init()
   setScore(m.record)
 end function
 
+'******************************************************************************
+'** Key Event Handling
+'******************************************************************************
 function onKeyEvent(key as string, press as boolean) as boolean
   handled = false
   if (press = true)
@@ -58,7 +65,7 @@ function onKeyEvent(key as string, press as boolean) as boolean
       resetGame()
       startGame()
       m.bird.callFunc("drop", true)
-      m.upPipes.ObserveField("translation", "OnPipeMoving")
+      m.upPipes.ObserveField("translation", "onPipeMoving")
       handled = true
     else if (key = "OK" and m.gameState = "gameover")
       resetGame()
@@ -74,11 +81,18 @@ function onKeyEvent(key as string, press as boolean) as boolean
   return handled
 end function
 
+'******************************************************************************
+'** onLanding()
+'** Called when the bird is falling down to the ground
+'******************************************************************************
 function onLanding()
   m.bird.callFunc("drop", false)
 end function
 
-function OnPipeMoving()
+'******************************************************************************
+'** Pipe Movement and Collision Detection
+'******************************************************************************
+function onPipeMoving()
   m.lowPipesAnimation.keyValue = [m.lowPipes.translation, [m.lowPipes.translation[0] - 100, m.lowPipes.translation[1]]]
   m.upPipesAnimation.keyValue = [m.upPipes.translation, [m.upPipes.translation[0] - 100, m.upPipes.translation[1]]]
 
@@ -134,7 +148,7 @@ function OnPipeMoving()
   birdRangeX = [birdPosX, birdPosX + birdSize[0]]
   birdRangeY = [birdPosY, birdPosY + birdSize[1]]
 
-  if ((isCrossed(birdRangeX, firstUpPipeRangeX) and isCrossed(birdRangeY, firstUpPipeRangeY)) or ((isCrossed(birdRangeX, firstLowPipeRangeX) and isCrossed(birdRangeY, firstLowPipeRangeY)))) stopGame()
+  if ((isCollided(birdRangeX, firstUpPipeRangeX) and isCollided(birdRangeY, firstUpPipeRangeY)) or ((isCollided(birdRangeX, firstLowPipeRangeX) and isCollided(birdRangeY, firstLowPipeRangeY)))) stopGame()
 
   if ((birdPosX - firstLowPipePosX) >= 25 and (m.checked = false or m.checked = invalid))
     m.scoreValue++
@@ -152,10 +166,18 @@ function OnPipeMoving()
   end if
 end function
 
-function isCrossed(range1 as object, range2 as object) as boolean
+'******************************************************************************
+'** isCollided()
+'** Check collision between bird and pipes
+'******************************************************************************
+function isCollided(range1 as object, range2 as object) as boolean
   return ((range1[0] >= range2[0] and range1[0] <= range2[1]) or (range1[1] >= range2[0] and range1[1] <= range2[1])) or ((range2[0] >= range1[0] and range2[0] <= range1[1]) or (range2[1] >= range1[0] and range2[1] <= range1[1]))
 end function
 
+'******************************************************************************
+'** startGame()
+'** Start all animations and set game state to PLAYING
+'******************************************************************************
 function startGame()
   m.scoreText.text = "SCORE:"
   m.scoreValue = 0
@@ -169,6 +191,10 @@ function startGame()
   SetState(GameStates().PLAYING)
 end function
 
+'******************************************************************************
+'** stopGame()
+'** Stop all animations and set game state to GAME_OVER
+'******************************************************************************
 function stopGame()
   if (m.record < m.scoreValue or m.record = invalid)
     m.record = m.scoreValue
@@ -183,6 +209,10 @@ function stopGame()
   m.bird.birdUri = "pkg:/images/flappy-bird/bird-dark_$$RES$$.png"
 end function
 
+'******************************************************************************
+'** resetGame()
+'** Reset all game elements to initial state
+'******************************************************************************
 function resetGame()
   m.sceneAnimation.control = "none"
   m.pipesAnimation.control = "none"
@@ -211,11 +241,19 @@ function resetGame()
   setScore(m.record)
 end function
 
+'******************************************************************************
+'** setScore()
+'** Update the score display
+'******************************************************************************
 function setScore(score as integer) as void
   scoreString = Str(score).Trim()
   m.score.text = scoreString
 end function
 
+'******************************************************************************
+'** onTimerFireChangeBackgroundColor()
+'** Change background color every second during gameplay
+'******************************************************************************
 function onTimerFireChangeBackgroundColor()
   if (GetState() <> GameStates().GAME_OVER and GetState() <> GameStates().START and m.scoreValue > 0 and m.scoreValue mod 10 = 0)
     backgroundColor = ColorPalette()[Int(Rnd(0) * ColorPalette().Count())]
